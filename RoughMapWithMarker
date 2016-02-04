@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+	#map {
+		width: 500px;
+		height: 400px;
+		background-color: #CCC
+	}
+    </style>	
+  </head>
+  <body>
+    <div id="map"></div> 
+      <script>
+      	var map;
+      	var src = 'https://rawgit.com/jmwakule/COSC-310-Solar-Project/f51eabd45babd46b0e268e8c3291fc70b816cf0e/outlines.kml';
+        
+      	function initMap() {
+	  	  	map = new google.maps.Map(document.getElementById('map'), {
+            	center: new google.maps.LatLng(49.886234, -119.496467),
+	    		zoom: 15,
+	    		mapTypeId: google.maps.MapTypeId.TERRAIN
+	  		});
+	  	var contentString = '<div id="content">'+
+	      		'<div id="siteNotice">'+
+	      		'</div>'+
+	      		'<h1 id="firstHeading" class="firstHeading">Aye</h1>'+
+	      		'<div id="bodyContent">'+
+	      		'<p><b>House One</b>, also referred to as <b>Yo Mammas Crib</b>, is a large ' +
+	      		'Heritage Site.</p>'+
+	      		'</div>'+
+	      		'</div>';
+
+	  		var infowindow = new google.maps.InfoWindow({
+	    		content: contentString
+	  		});
+	  	  	var marker = new google.maps.Marker({
+	  	    	position: new google.maps.LatLng(49.8764959,-119.4848653),
+	  	    	map: map,
+	  	    	title: 'Hello World!'
+	  	  	});
+	  	  	marker.addListener('click', function() {
+	  	    	infowindow.open(map, marker);
+	  	  	});
+	  	  	loadKmlLayer(src, map);
+	 	}
+      	
+      	function loadKmlLayer(src, map) {
+      		var kmlLayer = new google.maps.KmlLayer(src, {
+      			suppressInfoWindows: true,
+      			preserveViewport: false,
+      			map: map
+      		});
+      		google.maps.event.addListener(kmlLayer, 'click', function(event) {
+      			var content = event.featureData.infoWindowHtml;
+      		    var testimonial = document.getElementById('capture');
+      		    testimonial.innerHTML = content;
+      		});
+      	}
+      	
+		
+	</script>
+    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+		async defer></script>
+  </body>
+</html>
