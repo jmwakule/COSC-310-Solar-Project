@@ -1,0 +1,11 @@
+{
+    "people": [
+        {
+            "name": "john",
+            "children":[
+                {"name":"jeremy"},{"name":"mary"}
+            ]
+        }
+        
+    ]
+}
